@@ -84,3 +84,5 @@ legend('t^0','t^{20}','t^{40}')
 title(strcat('\Delta t =', num2str(deltat)))
 
 %Extra comment lijn toevoegen om up te loaden naar Github
+
+%Deze lijn is dan weer toegevoegd in de online Github zelf, zo nagaan hoe we deze dan weer lokaal krijgen! 
