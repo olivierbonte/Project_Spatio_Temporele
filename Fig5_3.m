@@ -80,3 +80,5 @@ figure()
 indices = [1,21,41];
 plot(x,u(indices,:))
 legend('t^0','t^{20}','t^{40}')
+
+%Extra comment lijn toevoegen om up te loaden naar Github
