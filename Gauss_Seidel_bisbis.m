@@ -94,7 +94,7 @@ end
 %% visualisaties
 %videostijl
 figure()
-for k = 1:10:K %Dus niet alle tijdstappen visualiseren
+for k = 0:10:K %Dus niet alle tijdstappen visualiseren
     contourf(x,y,u(2:end-1,2:end-1,k+1));
     xlabel('x')
     ylabel('y')
@@ -104,20 +104,17 @@ for k = 1:10:K %Dus niet alle tijdstappen visualiseren
     Ani(k) = getframe;
 end
 
-figure()
-contourf(x,y,u(2:end-1,2:end-1,2))
-
-figure()
-contourf(x,y,u(2:end-1,2:end-1,3))
-
 tijden = [0,200,600];
+f = figure();
+f.Position(3:4) = [1.5*560,1.2*420];
 for i = 1:length(tijden)
     tijdid = t == tijden(i);
-    
-    figure()
+    subplot(3,1,i)
     contourf(x,y,u(2:end-1,2:end-1,tijdid))
     xlabel('x')
     ylabel('y')
     title(strcat('t =',num2str(t(tijdid))))
+    colorbar
 end
+exportgraphics(gcf,'Figuur_9.png','Resolution',900)
 toc
