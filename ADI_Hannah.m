@@ -4,7 +4,7 @@ clear all
 %% Initialisations
  deltax=0.05;
  deltay=0.05; 
- deltat=0.5; 
+ deltat=0.1; 
  x=0:deltax:120;
  y=0:deltay:14;
  M=length(x)-2;
@@ -106,13 +106,15 @@ for t=0:deltat:800
           end
     end 
  %surf(x,y,C,'linestyle','none');
- contourf(x,y,C)
- colorbar
- xlabel('x')
- ylabel('y')
- zlabel('C')
- title('Project 1')
- Ani(step+1) = getframe;
+    if rem(t,5) == 0
+        contourf(x,y,C)
+        colorbar
+        xlabel('x')
+        ylabel('y')
+        zlabel('C')
+        title(strcat('ADI: time = ',num2str(t)))
+        Ani(step+1) = getframe;
+    end
 end
 %% Play the animation
 
