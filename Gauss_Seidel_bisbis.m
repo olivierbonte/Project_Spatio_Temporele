@@ -118,7 +118,7 @@ for i = 1:length(tijden)
     contourf(x,y,u(2:end-1,2:end-1,tijdid))
     xlabel('x')
     ylabel('y')
-    title(strcat('t =',num2str(t(tijdid))))
+    title(strcat('t = ',num2str(t(tijdid))))
     colorbar
 end
 exportgraphics(gcf,'Figuur_9.png','Resolution',900)
