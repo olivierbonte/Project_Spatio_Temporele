@@ -7,12 +7,11 @@ tic
 v = 0.1; %m/d
 alpha_L = 0.5; %m aanpssing tov Figuur 9
 D_L = alpha_L*v;
-Pe = 1; %Peclet nummer
-deltax = Pe*alpha_L; 
+Pe = 0.5; %Peclet nummer nemen op 0.5 zodat kleiner dan 1. 
+deltax = Pe*alpha_L; %deltax = Pe*D_L/v = Pe*alpha_L
 
-Cr = 1; %Courant nummer
+Cr = 0.5; %Courant nummer zodat kleiner dan 1!
 deltat = Cr*deltax/v; %in dagen
-
 alpha_T = 0.05; %m
 D_T = alpha_T*v;
 
@@ -103,7 +102,7 @@ end
 %videostijl voor R = 5
 u11 = u_opslag{3};
 figure()
-for k = 0:2:K %Dus niet alle tijdstappen visualiseren
+for k = 0:4:K %Dus niet alle tijdstappen visualiseren
     contourf(x,y,u11(2:end-1,2:end-1,k+1));
     xlabel('x')
     ylabel('y')

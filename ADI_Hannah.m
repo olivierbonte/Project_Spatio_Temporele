@@ -52,7 +52,7 @@ end
 
 C=zeros(N+2,M+2);
  
- %% Initial condition
+%% Initial condition
  for i=find(x==10):find(x==14.600000000000001)
      for j=find(y==4.2):find(y==9.8)
          C(j,i)=1; %NIET GEGEVEN!!!

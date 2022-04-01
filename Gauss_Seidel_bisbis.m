@@ -7,10 +7,10 @@ tic
 v = 0.1; %m/d
 alpha_L = 0.05; %m
 D_L = alpha_L*v;
-Pe = 1; %Peclet nummer
-deltax = Pe*alpha_L; 
+Pe = 0.5; %Peclet nummer nemen op 0.5 zodat kleiner dan 1. 
+deltax = Pe*alpha_L; %deltax = Pe*D_L/v = Pe*alpha_L
 
-Cr = 1; %Courant nummer
+Cr = 0.5; %Courant nummer zodat kleiner dan 1!
 deltat = Cr*deltax/v; %in dagen
 
 alpha_T = 0.005; %m

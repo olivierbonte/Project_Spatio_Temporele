@@ -4,7 +4,7 @@ clear all
 %% Initialisations
 deltax=0.05;
 deltay=0.05;
-deltat=0.1; %kleiner dan in paper waar 0.5 
+deltat=0.5; %kleiner dan in paper waar 0.5 
 %BELANGRIJKE TREND: Hoe kleiner de deltat, hoe TRAGER de golf beweegt!! HOE
 %KOMT DIT???? 
 x=0:deltax:120;
@@ -18,6 +18,10 @@ D_L=alpha_L*v; %m2/s
 alpha_T=0.005;
 D_T=alpha_T*v;
 R=1;
+
+%Obv paper 3D: 
+deltat*alpha_L/deltax^2 %10, te hoog volgens paper voor 
+0.25*alpha_L/deltax^2
 
 %% Coefficients Gaussian elimination
 % Coefficienten voor impliciete x-afgeleide

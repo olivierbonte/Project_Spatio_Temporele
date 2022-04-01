@@ -7,10 +7,10 @@ tic
 v = 0.1; %m/d
 alpha_L = 0.5; %m aanpssing tov Figuur 9
 D_L = alpha_L*v;
-Pe = 0.5; %Peclet nummer naar 0.5
+Pe = 1; %Peclet nummer
 deltax = Pe*alpha_L; 
 
-Cr = 0.5;%Courant nummer 0.5
+Cr = 1; %Courant nummer
 deltat = Cr*deltax/v; %in dagen
 
 alpha_T = 0.05; %m
@@ -56,6 +56,8 @@ B2 = -D_L/deltax^2 + v/(2*deltax);
 B3 = -D_L/deltax^2 - v/(2*deltax);
 B4 = -D_T/deltay^2;
 B5 = B4;
+B6 = 
+B7 = 
 
 %unew = zeros(N+4,M+4,K+1);
 %unew = u;
@@ -89,7 +91,7 @@ for k = 1:K %tot tijdstip K (K+1) maar indexeren op k+1
     %title(strcat('tijd =  ',num2str(t(k+1))),'dagen')
     %colorbar
     %Ani(k) = getframe;
-    if rem(k,50) == 0
+    if rem(k,5) == 0
        k 
     end
     difference = 1; %zodat hij terug vertrekt
@@ -97,12 +99,12 @@ end
 %% visualisaties
 %videostijl
 figure()
-for k = 0:8:K %Dus niet alle tijdstappen visualiseren
+for k = 0:1:K %Dus niet alle tijdstappen visualiseren
     contourf(x,y,u10(2:end-1,2:end-1,k+1));
     xlabel('x')
     ylabel('y')
     zlabel('u')
-    title(strcat('t =  ',num2str(t(k+1)),' days'))
+    title(strcat('tijd =  ',num2str(t(k+1))),'dagen')
     colorbar
     Ani(k+1) = getframe;
 end
@@ -116,9 +118,8 @@ for i = 1:length(tijden)
     contourf(x,y,u10(2:end-1,2:end-1,tijdid))
     xlabel('x')
     ylabel('y')
-    title(strcat('t =',num2str(t(tijdid)),' days'))
+    title(strcat('t =',num2str(t(tijdid))),'days')
     colorbar
 end
-sgtitle(strcat('Gauss-Seidel, \Deltat = ',num2str(deltat),' days'))
 exportgraphics(gcf,'Figuur_10.png','Resolution',900)
 toc
