@@ -1,6 +1,6 @@
 close all
 clear all
-
+tic
 %% Initialisations
 % analoog Fig 10
 v = 0.1; %m/d

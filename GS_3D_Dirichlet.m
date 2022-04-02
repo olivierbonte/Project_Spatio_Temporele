@@ -1,5 +1,5 @@
-%% Parameters van figuur 10, nu in 3D
-clear all
+%% GS 3D Dirichlet experiment
+%clear all
 close all
 tic 
 %Deze werkt!!!!!!
@@ -84,15 +84,24 @@ for k = 1:K %indexeer op k+1
     while difference > phi
         for j = 2:N+3 % van j = 0 tot j = N+1
             for i = 2:M+3 % van i = 0 tot i = M+1
+                Dirichlet = any(j == posy) && any(i == posx);
+                %Als deze waar is => Dirichlet ipv Neumann!
                 for g = 2:Z+3 
                 unew(j,i,g) = -B2/B1*u(j,i+1,g)-B3/B1*unew(j,i-1,g)-...
                     B4/B1*u(j+1,i,g) - B5/B1*unew(j-1,i,g) - ...
                     B6/B1*u(j,i,g+1) - B7/B1*unew(j,i,g-1) +...
                     R/(deltat*B1)*u_previous(j,i,g);
                 end
-                %ook in z richting 2 neumann randvoorwaarden!
+                %onderaan neumann
                 unew(j,i,Z+4) = unew(j,i,Z+2);
-                unew(j,i,1) = unew(j,i,3);
+                %Nu invoeren van een Dirichlet RVW in gebied waar initiële
+                %concentratie valt
+                if Dirichlet == true
+                    unew(j,i,2) = 1;
+                else 
+                    unew(j,i,1) = unew(j,i,3);
+                end
+                
             end
             unew(j,1,g) = unew(j,3,g); %Neumann links: u_-1 = u_1
             unew(j,M+4,g) = unew(j,M+2,g); %Neuman rehcts: u_M+2 = u_M
@@ -106,12 +115,13 @@ for k = 1:K %indexeer op k+1
     u = unew;
     u_previous = unew; %dus bijhouden als vorige tijdstap altijd! 
     if rem(t(k+1),10) == 0 %dus niet alle tijdstappen visualiseren!
-        k
+        k;
         uxz = squeeze(u(posy_doorsnede,2:end-1,2:end-1));
         contourf(x,z,uxz')
         %gebruik squeeze om 2D matrix te krijgen!!!
         xlabel('x')
         ylabel('z')
+        ylim([0,10])
         set ( gca, 'ydir', 'reverse' )
         colorbar
         title(strcat('GS in xz-plane: y = ',num2str(ydoorsnede)',' m, t = ',...
@@ -153,12 +163,12 @@ for i = 1:length(tijden)
     contourf(x,z,uxz')
     xlabel('x')
     ylabel('z')
+    ylim([0,10])
     set ( gca, 'ydir', 'reverse' )
-    title(strcat('t =',num2str(t(tijdid))),'days')
+    title(strcat('t = ',num2str(t(tijdid)),' days'))
     colorbar
 end
-sgtitle(strcat('GS in xz-plane: y = ',num2str(ydoorsnede)',' m'))
-exportgraphics(gcf,'Figuur_3D_xz_y7.png','Resolution',900)
+sgtitle(strcat('GS Dirichlet in xz-plane: y = ',num2str(ydoorsnede)',' m'))
 toc
 
 % xy vlak doorsnedes op t = 200
@@ -174,11 +184,12 @@ for i = 1:length(zdoorsnedes)
     contourf(x,y,uyx)
     set ( gca, 'ydir', 'reverse' )
     colorbar
-    caxis([0,0.25])
+    xlabel('x')
+    ylabel('y')
     title(strcat('z = ',num2str(zdoorsnede), ' m'))
 end
 sgtitle('GS in xy-plane: t = 200 days')
-
+exportgraphics(gcf,'Figuur_3D_Dirichlet_xz_y7.png','Resolution',900)
 % xy vlak doorsende op t = 600
 f = figure();
 f.Position(3:4) = [1.5*560,420];
@@ -192,7 +203,8 @@ for i = 1:length(zdoorsnedes)
     contourf(x,y,uyx)
     set ( gca, 'ydir', 'reverse' )
     colorbar
-    caxis([0,0.1])
+    xlabel('x')
+    ylabel('y')
     title(strcat('z = ',num2str(zdoorsnede), ' m'))
 end
 sgtitle('GS in xy-plane: t = 600 days')
