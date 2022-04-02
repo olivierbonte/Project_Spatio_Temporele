@@ -104,14 +104,17 @@ for k = 1:K %tot tijdstip K+1 door te indexeren op k+1
     k;
     u_k=u;
 
+    % Animatie figuur
     if rem(t(k+1),5)==0
+        sgtitle(strcat('GS in xy-plane, t =  ',num2str(t(k+1)),' days'));
+
         subplot(3,1,1)
         id1=find(z==dieptes(1))+1;
         contourf(x,y,u(2:end-1,2:end-1,id1));
         xlabel('x')
         ylabel('y')
         zlabel('C')
-        title(strcat('tijd =  ',num2str(t(k+1))),'dagen')
+        title('z=2')
         colorbar
 
         subplot(3,1,2)
@@ -120,7 +123,7 @@ for k = 1:K %tot tijdstip K+1 door te indexeren op k+1
         xlabel('x')
         ylabel('y')
         zlabel('C')
-        title(strcat('tijd =  ',num2str(t(k+1))),'dagen')
+        title('z=5')
         colorbar
 
         subplot(3,1,3)
@@ -129,38 +132,50 @@ for k = 1:K %tot tijdstip K+1 door te indexeren op k+1
         xlabel('x')
         ylabel('y')
         zlabel('C')
-        title(strcat('tijd =  ',num2str(t(k+1))),'dagen')
+        title('z=8')
         colorbar
 
      Ani(k+1) = getframe;
     end
 
+    if t(k+1) == 200
+        u200 = u;
+    elseif t(k+1) == 600
+        u600 = u;
+    end
+
     difference = 1; %om de while-lus opnieuw te starten
 end
 
-%% Visualisaties
-%videostijl
-% figure()
-% for k = 0:10:K %Dus niet alle tijdstappen visualiseren
-%     contourf(x,y,u(2:end-1,2:end-1,k+1));
-%     xlabel('x')
-%     ylabel('y')
-%     zlabel('u')
-%     title(strcat('tijd =  ',num2str(t(k+1))),'dagen')
-%     colorbar
-%     Ani(k+1) = getframe;
-% end
+%% Extra visualisatie(s)
+% Op t=200
+figure(5);
+hold on
+sgtitle(strcat('GS in xy-plane, t = 200 days'));
+for p=1:length(dieptes)
+    id=find(z==dieptes(p))+1;
+    subplot(3,1,p)
+    contourf(x,y,u200(2:end-1,2:end-1,id))
+    xlabel('x')
+    ylabel('y')
+    title(strcat('z =  ',num2str(dieptes(p))))
+    colorbar
+    caxis([0,0.25])
+end
+hold off
 
-% tijden = [0,200,600];
-% f = figure();
-% f.Position(3:4) = [1.5*560,1.2*420];
-% for i = 1:length(tijden)
-%     tijdid = t == tijden(i);
-%     subplot(3,1,i)
-%     contourf(x,y,u(2:end-1,2:end-1,tijdid))
-%     xlabel('x')
-%     ylabel('y')
-%     title(strcat('t = ',num2str(t(tijdid))))
-%     colorbar
-% end
-% exportgraphics(gcf,'Figuur_9.png','Resolution',900)
+% Op t=600
+figure(6);
+hold on
+sgtitle(strcat('GS in xy-plane, t = 600 days'));
+for p=1:length(dieptes)
+    id=find(z==dieptes(p))+1;
+    subplot(3,1,p)
+    contourf(x,y,u600(2:end-1,2:end-1,id))
+    xlabel('x')
+    ylabel('y')
+    title(strcat('z =  ',num2str(dieptes(p))))
+    colorbar
+    caxis([0,0.1])
+end
+hold off
