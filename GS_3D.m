@@ -1,4 +1,4 @@
-%% Figuur 10 via Gauss-Seidel bis
+%% Parameters van figuur 10, nu in 3D
 %clear all
 %close all
 tic 
@@ -26,34 +26,41 @@ x = 0:deltax:120; %x tot 120 m
 deltay = deltax;
 deltaz = deltax; %analoog dus
 y = 0:deltay:14; %y tot 14m
-z = 0:deltaz:20; %dus van het oppervlak tot 20m onder het oppervlak
+z = 2:deltaz:20; 
+%idee van GWT op 2 m
 t = 0:deltat:600; %tot dag 600 in de figuur
 M = length(x)-2; %aftrekken van interne knopen
 N = length(y)-2;
 Z = length(z)-2;
 K = length(t)-1;
 
-u = zeros(N+4,M+4,K+1); %dus een 3D matrix
+u = zeros(N+4,M+4,Z+4); %dus een 3D matrix!!
 %initiele condities
 idx = x >= 10 & x <= 14.6;
 idy = y >= 4.2 & y <= 9.8;
-idz = z >= 4 & y <= 8; %Veronderstel dat dit in de VERZADIGD ZONE is 
-%beter idee! om rekening te houden met de imaginaire knopen
+idz = z >= 2 & z <= 8; 
 posx = find(idx) + 1; %omdat indexering start op -1
 posy = find(idy) +1; %idem
-C0 = 1; %bv 1 kg/m^3 dus
-u10(posy,posx,1) = C0;
+posz = find(idz); %hier niet selecteren uit de matrix
+concentraties = linspace(1,0,length(posz));
+for i = 1:length(posz)
+    C0 = concentraties(i);
+    u(posy,posx,posz(i)) = C0;
+end
 
-%plot de initiele conditie
+%plot de initiele conditie in xz vlak
+ydoorsnede = (4.2 + 9.8)/2;
+idy_doorsnede = y == ydoorsnede;
+posy_doorsnede = find(idy_doorsnede) +1;
 figure()
-surf(x,y,u10(2:end-1,2:end-1,1),'LineStyle','none')
-figure()
-contourf(x,y,u10(2:end-1,2:end-1,1))
+uxz = squeeze(u(posy_doorsnede,2:end-1,2:end-1));
+contourf(x,z,uxz')
+%gebruik squeeze om 2D matrix te krijgen!!!
 xlabel('x')
-ylabel('y')
+ylabel('z')
+set ( gca, 'ydir', 'reverse' )
 colorbar
-
-%aaanpassing
+title(strcat('Initial conditions in the xz-plane: y = ',num2str(ydoorsnede)',' m'))
 
 %% Gauss Seidel iteratie
 difference = 1;
@@ -66,8 +73,8 @@ B2 = -D_L/deltax^2 + v/(2*deltax);
 B3 = -D_L/deltax^2 - v/(2*deltax);
 B4 = -D_T/deltay^2;
 B5 = B4;
-B6 = 
-B7 = 
+%B6 = 
+%B7 = 
 
 %unew = zeros(N+4,M+4,K+1);
 %unew = u;
