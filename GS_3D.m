@@ -14,22 +14,30 @@ Cr = 1; %Courant nummer
 deltat = Cr*deltax/v; %in dagen
 
 alpha_T = 0.05; %m
-D_T = alpha_T*v;
+D_T = alpha_T*v; 
+
+%z richting
+alpha_V = 0.05; %V van verticaal dus
+D_V = alpha_V*v;
 
 %grid
 x = 0:deltax:120; %x tot 120 m
 %bij gebrek aan info: neem hier deltay = deltax
 deltay = deltax;
+deltaz = deltax; %analoog dus
 y = 0:deltay:14; %y tot 14m
+z = 0:deltaz:20; %dus van het oppervlak tot 20m onder het oppervlak
 t = 0:deltat:600; %tot dag 600 in de figuur
 M = length(x)-2; %aftrekken van interne knopen
 N = length(y)-2;
+Z = length(z)-2;
 K = length(t)-1;
 
-u10 = zeros(N+4,M+4,K+1); %dus een 3D matrix
+u = zeros(N+4,M+4,K+1); %dus een 3D matrix
 %initiele condities
 idx = x >= 10 & x <= 14.6;
 idy = y >= 4.2 & y <= 9.8;
+idz = z >= 4 & y <= 8; %Veronderstel dat dit in de VERZADIGD ZONE is 
 %beter idee! om rekening te houden met de imaginaire knopen
 posx = find(idx) + 1; %omdat indexering start op -1
 posy = find(idy) +1; %idem
@@ -44,6 +52,8 @@ contourf(x,y,u10(2:end-1,2:end-1,1))
 xlabel('x')
 ylabel('y')
 colorbar
+
+%aaanpassing
 
 %% Gauss Seidel iteratie
 difference = 1;
