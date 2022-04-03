@@ -13,7 +13,7 @@ v_x_2=[0.1 0.1*K_hydr(2)/K_hydr(1)];
 % De snelheid in de onderste laag wordt dan berekend o.b.v. verhoudingen.
 
 alpha=[0.001 0.067];
-alpha_x=[0.1 0.1*alpha(2)/alpha(1)]; %m
+alpha_x=[0.2 0.2*alpha(2)/alpha(1)]; %m
 % Opm: 500 keer groter dan in de paper, vanwege beperkte opslag voor 3D
 % matrix...
 D_x_2=alpha_x.*v_x_2;
@@ -144,7 +144,7 @@ for k = 1:K %tot tijdstip K+1 door te indexeren op k+1
 
     if t(k+1)>=200-deltat/2 & t(k+1)<=200+deltat/2
         u200 = u;
-    elseif t(k+1)>=600-deltat/2 & t(k+1)<=600+deltat/2
+    elseif t(k+1)>=600-deltat
         u600 = u;
     end
 
