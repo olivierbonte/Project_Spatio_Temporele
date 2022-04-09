@@ -12,9 +12,9 @@ v_x_2=[0.1 0.1*K_hydr(2)/K_hydr(1)];
 % Veronderstel de oorspronkelijke snelheid in de bovenste laag.
 % De snelheid in de onderste laag wordt dan berekend o.b.v. verhoudingen.
 
-alpha=[0.001 0.067];
-alpha_x=[0.2 0.2*alpha(2)/alpha(1)]; %m
-% Opm: 500 keer groter dan in de paper, vanwege beperkte opslag voor 3D
+alpha=[0.001 0.067]; %diffusiviteit in m
+alpha_x=[0.1 0.1*alpha(2)/alpha(1)];
+% Opm: 100 keer groter dan in de paper, vanwege beperkte opslag voor 3D
 % matrix...
 D_x_2=alpha_x.*v_x_2;
 alpha_y=alpha_x/10; %alpha_y en alpha_z opnieuw 10x kleiner??
@@ -22,11 +22,11 @@ D_y_2=alpha_y.*v_x_2;
 D_z_2=D_y_2;
 
 Pe=0.8; %zie opm
-deltax=round(Pe*min(alpha_x),2); %kleinere van de 2 alpha_x gebruiken
+deltax=Pe*alpha_x(1); %kleinere van de 2 alpha_x gebruiken
 deltay=deltax;
 deltaz=deltax;
 Cr=0.8; %zie opm
-deltat=round(Cr*deltax/max(v_x_2),2); %grotere van de 2 v_x gebruiken
+deltat=Cr*deltax/v_x_2(1); %grotere van de 2 v_x gebruiken
 
 x = 0:deltax:120; 
 y = 0:deltay:14; 
