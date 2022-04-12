@@ -169,6 +169,7 @@ for i = 1:length(tijden)
     colorbar
 end
 sgtitle(strcat('GS Dirichlet in xz-plane: y = ',num2str(ydoorsnede)',' m'))
+exportgraphics(gcf,'Figuur_3D_Dirichlet_xz_y7.png','Resolution',900)
 toc
 
 % xy vlak doorsnedes op t = 200
@@ -189,7 +190,7 @@ for i = 1:length(zdoorsnedes)
     title(strcat('z = ',num2str(zdoorsnede), ' m'))
 end
 sgtitle('GS in xy-plane: t = 200 days')
-exportgraphics(gcf,'Figuur_3D_Dirichlet_xz_y7.png','Resolution',900)
+
 % xy vlak doorsende op t = 600
 f = figure();
 f.Position(3:4) = [1.5*560,420];
