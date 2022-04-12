@@ -120,8 +120,8 @@ for i = 1:length(Rs)
     u11 = u_opslag{i};
     subplot(3,1,i)
     contourf(x,y,u11(2:end-1,2:end-1,tijdid))
-    xlabel('x')
-    ylabel('y')
+    xlabel('x [m]')
+    ylabel('y [m]')
     title(strcat('R = ',num2str(Rs(i)) ,', t =',num2str(t(tijdid)),' days'))
     colorbar
 end

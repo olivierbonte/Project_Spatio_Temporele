@@ -1,5 +1,5 @@
 %% Parameters van figuur 10, nu in 3D
-clear all
+%clear all
 close all
 tic 
 %Deze werkt!!!!!!
@@ -56,12 +56,13 @@ figure()
 uxz = squeeze(u(posy_doorsnede,2:end-1,2:end-1));
 contourf(x,z,uxz')
 %gebruik squeeze om 2D matrix te krijgen!!!
-xlabel('x')
-ylabel('z')
+xlabel('x [m]')
+ylabel('z [m]')
 set ( gca, 'ydir', 'reverse' )
 colorbar
-title(strcat('Initial conditions in the xz-plane: y = ',num2str(ydoorsnede)',' m'))
-
+%title(strcat('Initial conditions in the xz-plane: y = ',num2str(ydoorsnede)',' m'))
+title(strcat('y = ',num2str(ydoorsnede)',' m'))
+exportgraphics(gcf,'Init_cond_3D.png','Resolution',900)
 %% Gauss Seidel iteratie
 difference = 1;
 phi = 1e-4; %convergentiecriterium
@@ -151,13 +152,14 @@ for i = 1:length(tijden)
     u = us{i};
     uxz = squeeze(u(posy_doorsnede,2:end-1,2:end-1));
     contourf(x,z,uxz')
-    xlabel('x')
-    ylabel('z')
+    xlabel('x [m]')
+    ylabel('z [m]')
     set ( gca, 'ydir', 'reverse' )
-    title(strcat('t =',num2str(t(tijdid))),'days')
+    title(strcat('t =',num2str(t(tijdid)),' days'))
     colorbar
+    caxis([0,0.25])
 end
-sgtitle(strcat('GS in xz-plane: y = ',num2str(ydoorsnede)',' m'))
+sgtitle(strcat('xz-plane: y = ',num2str(ydoorsnede)',' m'))
 exportgraphics(gcf,'Figuur_3D_xz_y7.png','Resolution',900)
 toc
 
@@ -173,11 +175,13 @@ for i = 1:length(zdoorsnedes)
     subplot(3,1,i)
     contourf(x,y,uyx)
     set ( gca, 'ydir', 'reverse' )
+    xlabel('x [m]')
+    ylabel('y [m]')
     colorbar
     caxis([0,0.25])
     title(strcat('z = ',num2str(zdoorsnede), ' m'))
 end
-sgtitle('GS in xy-plane: t = 200 days')
+sgtitle('xy-plane: t = 200 days')
 
 % xy vlak doorsende op t = 600
 f = figure();
@@ -192,7 +196,9 @@ for i = 1:length(zdoorsnedes)
     contourf(x,y,uyx)
     set ( gca, 'ydir', 'reverse' )
     colorbar
+    xlabel('x [m]')
+    ylabel('y [m]')
     caxis([0,0.1])
     title(strcat('z = ',num2str(zdoorsnede), ' m'))
 end
-sgtitle('GS in xy-plane: t = 600 days')
+sgtitle('xy-plane: t = 600 days')

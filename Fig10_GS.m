@@ -114,11 +114,11 @@ for i = 1:length(tijden)
     tijdid = t == tijden(i);
     subplot(2,1,i)
     contourf(x,y,u10(2:end-1,2:end-1,tijdid))
-    xlabel('x')
-    ylabel('y')
-    title(strcat('t =',num2str(t(tijdid)),' days'))
+    xlabel('x [m]')
+    ylabel('y [m]')
+    title(strcat('t = ',num2str(t(tijdid)),' days'))
     colorbar
 end
-sgtitle(strcat('Gauss-Seidel, \Deltat = ',num2str(deltat),' days'))
+%sgtitle(strcat('Gauss-Seidel, \Deltat = ',num2str(deltat),' days'))
 exportgraphics(gcf,'Figuur_10.png','Resolution',900)
 toc
