@@ -161,14 +161,14 @@ for i = 1:length(tijden)
     u = us{i};
     uxz = squeeze(u(posy_doorsnede,2:end-1,2:end-1));
     contourf(x,z,uxz')
-    xlabel('x')
-    ylabel('z')
-    ylim([0,10])
+    xlabel('x [m]')
+    ylabel('z [m]')
+    ylim([2,10])
     set ( gca, 'ydir', 'reverse' )
     title(strcat('t = ',num2str(t(tijdid)),' days'))
     colorbar
 end
-sgtitle(strcat('GS Dirichlet in xz-plane: y = ',num2str(ydoorsnede)',' m'))
+sgtitle(strcat('xz-plane: y = ',num2str(ydoorsnede)',' m'))
 exportgraphics(gcf,'Figuur_3D_Dirichlet_xz_y7.png','Resolution',900)
 toc
 
@@ -185,11 +185,13 @@ for i = 1:length(zdoorsnedes)
     contourf(x,y,uyx)
     set ( gca, 'ydir', 'reverse' )
     colorbar
-    xlabel('x')
-    ylabel('y')
+    %caxis([0,1]) %niet duidelijk
+    xlabel('x [m]')
+    ylabel('y [m]')
     title(strcat('z = ',num2str(zdoorsnede), ' m'))
 end
-sgtitle('GS in xy-plane: t = 200 days')
+sgtitle('xy-plane: t = 200 days')
+exportgraphics(gcf,'Figuur_3D_Dirichlet_xy_t200.png','Resolution',900)
 
 % xy vlak doorsende op t = 600
 f = figure();
@@ -204,8 +206,10 @@ for i = 1:length(zdoorsnedes)
     contourf(x,y,uyx)
     set ( gca, 'ydir', 'reverse' )
     colorbar
-    xlabel('x')
-    ylabel('y')
+    %caxis([0,1])
+    xlabel('x [m]')
+    ylabel('y [m]')
     title(strcat('z = ',num2str(zdoorsnede), ' m'))
 end
-sgtitle('GS in xy-plane: t = 600 days')
+sgtitle('xy-plane: t = 600 days')
+exportgraphics(gcf,'Figuur_3D_Dirichlet_xy_t600.png','Resolution',900)

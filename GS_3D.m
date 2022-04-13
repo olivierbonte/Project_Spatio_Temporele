@@ -52,7 +52,8 @@ end
 ydoorsnede = (4.2 + 9.8)/2;
 idy_doorsnede = y == ydoorsnede;
 posy_doorsnede = find(idy_doorsnede) +1;
-figure()
+f = figure();
+f.Position(3:4) = [1.5*560,420];
 uxz = squeeze(u(posy_doorsnede,2:end-1,2:end-1));
 contourf(x,z,uxz')
 %gebruik squeeze om 2D matrix te krijgen!!!
@@ -182,7 +183,7 @@ for i = 1:length(zdoorsnedes)
     title(strcat('z = ',num2str(zdoorsnede), ' m'))
 end
 sgtitle('xy-plane: t = 200 days')
-
+exportgraphics(gcf,'Figuur_3D_xy_t200.png','Resolution',900)
 % xy vlak doorsende op t = 600
 f = figure();
 f.Position(3:4) = [1.5*560,420];
@@ -202,3 +203,4 @@ for i = 1:length(zdoorsnedes)
     title(strcat('z = ',num2str(zdoorsnede), ' m'))
 end
 sgtitle('xy-plane: t = 600 days')
+exportgraphics(gcf,'Figuur_3D_xy_t600.png','Resolution',900)
